@@ -1,0 +1,131 @@
+\documentclass{report}
+\usepackage[T1]{fontenc} % Fontes T1
+\usepackage[utf8]{inputenc} % Input UTF8
+\usepackage[backend=biber, style=ieee]{biblatex} % para usar bibliografia
+\usepackage{csquotes}
+\usepackage[portuguese]{babel} %Usar língua portuguesa
+\usepackage{blindtext} % Gerar texto automaticamente
+\usepackage[printonlyused]{acronym}
+\usepackage{hyperref} % para autoref
+\usepackage{graphicx}
+
+\bibliography{bibliografia}
+
+
+\begin{document}
+%%
+% Definições
+%
+\def\titulo{Gestão de Biblioteca}
+\def\data{20/11/2019}
+\def\autores{Diogo Correia, Pedro Rocha}
+\def\autorescontactos{(90327) diogo.correia99@ua.pt, (95057) pedromrocha@ua.pt}
+\def\versao{1}
+\def\departamento{DETI}
+\def\empresa{Universidade de Aveiro}
+\def\logotipo{ua.pdf}
+%
+%%%%%% CAPA %%%%%%
+%
+\begin{titlepage}
+
+\begin{center}
+%
+\vspace*{50mm}
+%
+{\Huge \titulo}\\ 
+%
+\vspace{10mm}
+%
+{\Large \empresa}\\
+%
+\vspace{10mm}
+%
+{\LARGE \autores}\\ 
+%
+\vspace{30mm}
+%
+\begin{figure}[h]
+\center
+\includegraphics{\logotipo}
+\end{figure}
+%
+\vspace{30mm}
+\end{center}
+%
+\begin{flushright}
+\versao
+\end{flushright}
+\end{titlepage}
+
+%%  Página de Título %%
+\title{%
+{\Huge\textbf{\titulo}}\\
+{\Large \departamento\\ \empresa}
+}
+%
+\author{%
+    \autores \\
+    \autorescontactos
+}
+%
+\date{\data}
+%
+\maketitle
+
+\pagenumbering{roman}
+
+%%%%%% Agradecimentos %%%%%%
+% Segundo glisc deveria aparecer após conclusão...
+%\renewcommand{\abstractname}{Agradecimentos}
+%\begin{abstract}
+%Eventuais agradecimentos.
+%Comentar bloco caso não existam agradecimentos a fazer.
+%\end{abstract}
+
+
+\tableofcontents
+% \listoftables     % descomentar se necessário
+% \listoffigures    % descomentar se necessário
+
+\chapter*{Acrónimos}
+\begin{acronym}
+\acro{deti}[DETI]{- Departamento de Electrónica, Telecomunicações e Informática}
+\acro{uc's} [UC'S]{- Unidades Curriculares}
+\acro{miect}[MIECT]{- Mestrado Integrado em Engenharia de Computadores e Telemática}
+\acro{mpei}[MPEI]{- Métodos Probabilisticos para Engenharia Informática}
+\end{acronym}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introdução}
+\label{chap.introducao}
+\paragraph{} 
+Este projeto, proposto pela disciplina de \acs{mpei}, tem como principal objetivo criar uma aplicação que fará uma gestão de forma inteligente de uma biblioteca de livros. Esta aplicação, possibilitará ao utilizador de pesquisar por um determinado livro através do seu nome e/ou categoria, e obter um feedback de outros livros com o nome idêntico e da sua existência no acervo. Mais informação no seguimento deste relatório.
+\paragraph{}
+Este trabalho será desenvolvido com o conhecimento obtido nas aulas da disciplina de \acs{mpei}, através de alguma auto-aprendizagem através da internet, e através de algum conhecimento adquirido em \acs{uc's} anteriores, tais como Programação 1 e 2. O trabalho será escrito usando a linguagem de programação Java.
+
+\chapter{Metodologia}
+\label{chap.metodologia}
+\paragraph{}
+Para dar inicio ao programa o utilizador tem de introduzir 3 parametros, sendo eles, o intervalo, o número de testes e o nome do país ou ID. O intervalo faz com o que o programa pause entre os testes, o número de testes é o número de vezes que os testes são executados e por último o nome do país ou ID representa o país no qual vamos fazeros testes. Neste parametro quando introduzimos o nome do país, num ficheiro .json, ele vai procurar o servidores desse país e vai escolher um de forma aleatória. Se o utilizador introduzir um ID o programa, também num ficheiro .json, vai procurar esse servidor em específico.
+
+\chapter{Resultados}
+\label{chap.resultados}
+
+
+\chapter*{Contribuições dos autores}
+\label{chap.contribuição dos autores}
+\paragraph{}
+
+A decisão em espicifico do que cada membro irá fazer ainda não foi realizada devido à fase inicial em que o trabalho se encontra mas será sempre realizado pelos dois membros que compõem o grupo, quer seja de forma fisica ou por utilização de tecnologias que nos permitirá trabalhar à distância. Deste modo, podemos assumir desde já que a contribuição de cada membro do grupo será de 50\% neste trabalho prático.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+
+\end{document}
