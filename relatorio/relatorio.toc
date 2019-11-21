@@ -1,0 +1,22 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {portuguese}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Acr\IeC {\'o}nimos}{ii}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Introdu\IeC {\c c}\IeC {\~a}o}{1}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{1}{section*.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{1}{section*.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Metodologia}{2}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{2}{section*.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{2}{section*.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{2}{section*.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Contribui\IeC {\c c}\IeC {\~o}es dos autores}{3}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{3}{section*.7}
