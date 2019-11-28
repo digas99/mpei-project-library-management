@@ -9,9 +9,11 @@ public class FetchFromWeb {
 
     private String htmlContent;
     private String name;
+    private Map<String, String> codes = new HashMap<String, String>();
 
     public FetchFromWeb(String link, String name) {
         this.name = name;
+        fillCodes();
         String content = null;  
         URLConnection connection = null;
         try {
@@ -49,7 +51,7 @@ public class FetchFromWeb {
         String[] split1 = htmlContent.split("f-searchResult__title");
         for (int i = 1; i < split1.length; i++) {
             String[] split2 = split1[i].split(">");
-            titles.add(removeSpacesFromBeginningAndEndOfString(split2[1].split("<")[0], false));
+            titles.add(utf8Fixing(removeSpacesFromBeginningAndEndOfString(split2[1].split("<")[0], false)));
         }
         return titles.toArray(new String[titles.size()]);
     }
@@ -95,5 +97,65 @@ public class FetchFromWeb {
             newS += s.charAt(i);
         }
         return newS;
+    }
+
+    private String utf8Fixing(String s) {
+        String newS = "";
+        String code = "";
+        int enteringCodeCounter = 0;
+        boolean dontAppend = false;
+        for (int i=0; i<s.length(); i++) {
+            char currentChar = s.charAt(i);
+            if (enteringCodeCounter == 0 && dontAppend == true) {
+                dontAppend = false;
+            }
+
+            if (enteringCodeCounter == 5) {
+                newS+=codes.get(code);
+                enteringCodeCounter = 0;
+                code = "";
+            }
+
+            if (enteringCodeCounter >= 2 && enteringCodeCounter < 6) {
+                dontAppend = true;
+                code+=currentChar;
+                enteringCodeCounter++;
+            }
+
+            if (currentChar == '&' || currentChar == '#') {
+                dontAppend = true;
+                enteringCodeCounter++;
+            }
+            
+            if (!dontAppend) {
+                newS+=currentChar;
+            }
+        }
+        return newS;
+    }
+
+    private void fillCodes() {
+        codes.put("231", "ç");
+        codes.put("233", "é");
+        codes.put("225", "á");
+        codes.put("243", "ó");
+        codes.put("244", "ô");
+        codes.put("224", "à");
+        codes.put("227", "ã");
+        codes.put("245", "õ");
+        codes.put("234", "ê");
+        codes.put("237", "í");
+        codes.put("250", "ú");
+        codes.put("199", "Ç");
+        codes.put("201", "É");
+        codes.put("193", "Á");
+        codes.put("211", "Ó");
+        codes.put("192", "À");
+        codes.put("195", "Ã");
+        codes.put("213", "Õ");
+        codes.put("202", "Ê");
+        codes.put("205", "Í");
+        codes.put("212", "Ô");
+        codes.put("218", "Ú");
     }
 }

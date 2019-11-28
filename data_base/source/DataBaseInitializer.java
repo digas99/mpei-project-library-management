@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Map;
 
-public class test {
+public class DataBaseInitializer {
 
     public static FetchFromWeb[] ffwArray;
 
@@ -30,6 +30,10 @@ public class test {
         }
         System.out.println("]\n");
 
+        printFetches();
+    }
+
+    public static void printFetches() {
         for (FetchFromWeb ffw : ffwArray) {
             int counter=1;
             System.out.println("-> "+ffw.getName()+":\n");
