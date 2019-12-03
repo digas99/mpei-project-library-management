@@ -93,9 +93,6 @@ public class Library {
 
     private boolean updateDB() throws FileNotFoundException {
         DataBaseCreator dbCreator = new DataBaseCreator(acervo);
-        if (dbCreator.exportDB()) {
-            return true;
-        }
-        return false;
+        return dbCreator.exportDB();
     }
 }
