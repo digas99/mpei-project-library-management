@@ -48,6 +48,21 @@ public enum Category {
         }
     }
 
+    public static Category getCategoryFromFileName(String s) {
+        switch(s) {
+            case "livros_literatura":
+                return LITERATURE;
+            case "livros_thriller":
+                return THRILLER;
+            case "livros_crianças":
+                return KIDS;
+            case "livros_syfy":
+                return SYFY;
+            default:
+                return null;
+        }
+    }
+
     public static Category[] getCategories() {
         Category[] arr = {LITERATURE, THRILLER, KIDS, SYFY};
         return arr;

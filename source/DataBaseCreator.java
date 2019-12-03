@@ -85,12 +85,10 @@ public class DataBaseCreator {
             booksList = new ArrayList<>();
             Category[] categories = Category.getCategories();
             for (Category c : categories) {
-                out.println("-> "+Category.getFileName(c)+":\n");
                 if (lib != null) {
                     books = lib.acervo().toArray(new Book[lib.acervo().size()]);
                 }
                 for (Book b : books) {
-                    out.println(b.toString());
                     if (b.category().equals(c)) {
                         String borrowed;
                         if (b.borrowed())
@@ -103,7 +101,6 @@ public class DataBaseCreator {
                         aux.add(borrowed);
                         booksList.add(aux);
                     }
-                out.print("");
                 }
 
                 for (List<String> book : booksList) {

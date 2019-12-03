@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 
 public class Book {
 
@@ -6,18 +7,30 @@ public class Book {
     private String author;
     private Category category;
     private boolean borrowed;
+    private Library lib;
 
     public Book(String title, String author, Category category, Library l) {
         if (l != null) {
             id = l.setIdToBook();
             l.increaseId();
-        }
-        else
+        } else
             id = 0;
         this.title = title;
         this.author = author;
         this.category = category;
         borrowed = false;
+    }
+
+    public Book(int id, String title, String author, String borrowed, Category category, Library l) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        lib = l;
+        if (borrowed == "true")
+            this.borrowed = true;
+        else
+            this.borrowed = false;
     }
 
     public int id() {
@@ -40,8 +53,10 @@ public class Book {
         return borrowed;
     }
 
-    public void borrow() {
+    // FALTA DAR UPDATE NA BASE DE DADOS
+    public void borrow() throws FileNotFoundException {
         borrowed = true;
+        lib.updateDB();
     }
 
     public boolean setTitle(String t) {
@@ -80,9 +95,9 @@ public class Book {
     @Override
     public String toString() {
         if (borrowed) {
-            return "[R] "+id+". "+title+" by "+author;
+            return "[R] "+id+". "+title+" by "+author+" - "+category;
         }
-        return id+". "+title+" by "+author;
+        return id+". "+title+" by "+author+" - "+category;
     }
 
     @Override
