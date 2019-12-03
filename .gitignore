@@ -16,3 +16,6 @@
 *.run.xml
 *.synctex.gz
 *.toc
+
+#vscode
+*.vscode

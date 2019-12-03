@@ -23,8 +23,6 @@ public class DataBaseCreator {
         out.println("Fetching pages...");
         out.print("Loading: [");
         for (int i=0; i<fileNames.length; i++) {
-            File f = new File("html_pages/"+fileNames[i]+".html");
-            PrintWriter pw = new PrintWriter(f);
             FetchFromWeb ffw = new FetchFromWeb(links[i], fileNames[i]);
             ffwArray[nmrFetched] = ffw;
             nmrFetched++;
@@ -32,9 +30,6 @@ public class DataBaseCreator {
             for (int j=0; j<loadingDivision; j++) {
                 out.print("|");
             }
-            pw.print(htmlContent);
-            pw.flush();
-            pw.close();
         }
         out.println("]\n");
     }
