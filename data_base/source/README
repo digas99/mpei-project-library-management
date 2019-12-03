@@ -1,0 +1,8 @@
+It is needed for you to use the json-simple-1.1.jar library to compile the class DataBaseInitializer.
+It is situated on the root folder, in a folder named lib.
+
+Changing CLASSPATH localy in the terminal:
+$ export CLASSPATH=.:/path/to/this/folder/library-management/lib/json-simple-1.1.jar
+
+Compiling without changing the CLASSPATH of the terminal:
+$ javac -cp /path/to/this/folder/library-management/lib/json-simple-1.1.jar *.java

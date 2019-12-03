@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.Map;
+import org.json.simple.*;
 
 public class DataBaseInitializer {
 
@@ -30,18 +31,29 @@ public class DataBaseInitializer {
         }
         System.out.println("]\n");
 
-        printFetches();
+        PrintWriter pwJSON = new PrintWriter("../data_base.json");
+        JSONObject jsO = new JSONObject();
+        for (FetchFromWeb ffw : ffwArray) {
+            printFetches(ffw);
+            Map<String, String> books = ffw.getBooksInfoMap();
+            jsO.put(ffw.getName(), books);
+        }
+        pwJSON.write(jsO.toJSONString());
+        pwJSON.flush();
+        pwJSON.close();
     }
 
-    public static void printFetches() {
-        for (FetchFromWeb ffw : ffwArray) {
-            int counter=1;
+    public static void printFetches(FetchFromWeb ffw) {
+        int counter=1;
             System.out.println("-> "+ffw.getName()+":\n");
             for (Map.Entry<String, String> book : ffw.getBooksInfoMap().entrySet()) {
                 System.out.println("["+counter+"] - Title: "+book.getKey()+" | Author: "+book.getValue()+"\n");
                 counter++;
             }
-            System.out.print("");
-        }
+        System.out.print("");
+    }
+
+    public static void exportJSON() {
+
     }
 }

@@ -1,0 +1,6 @@
+class LoadFromDB {
+
+    public LoadFromDB() {
+        
+    }
+}

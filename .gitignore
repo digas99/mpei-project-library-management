@@ -2,3 +2,17 @@
 
 # JAVA
 *.class
+
+#.gitignore
+*.gitignore.swm
+*.gitignore.swn
+*.gitignore.swp
+
+#tex
+*.aux
+*.bcf
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
