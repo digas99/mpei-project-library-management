@@ -52,8 +52,4 @@ public class DataBaseInitializer {
             }
         System.out.print("");
     }
-
-    public static void exportJSON() {
-
-    }
 }
