@@ -1,18 +1,23 @@
-class Book {
+
+public class Book {
 
     private final int id;
     private String title;
     private String author;
     private Category category;
+    private boolean borrowed;
 
     public Book(String title, String author, Category category, Library l) {
         if (l != null) {
             id = l.setIdToBook();
             l.increaseId();
         }
+        else
+            id = 0;
         this.title = title;
         this.author = author;
         this.category = category;
+        borrowed = false;
     }
 
     public int id() {
@@ -29,6 +34,14 @@ class Book {
 
     public Category category() {
         return category;
+    }
+
+    public boolean borrowed() {
+        return borrowed;
+    }
+
+    public void borrow() {
+        borrowed = true;
     }
 
     public boolean setTitle(String t) {
@@ -66,6 +79,9 @@ class Book {
 
     @Override
     public String toString() {
+        if (borrowed) {
+            return "[R] "+id+". "+title+" by "+author;
+        }
         return id+". "+title+" by "+author;
     }
 

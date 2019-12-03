@@ -46,6 +46,20 @@ public class FetchFromWeb {
         return info;
     }
 
+    public List<List<String>> getBooksList() {
+        List<List<String>> list = new ArrayList<>();
+        String[] titles = getBooksTitle();
+        String[] authors = getBooksAuthor();
+        for (int i=0; i<titles.length; i++) {
+            List<String> aux = new ArrayList<>();
+            aux.add(titles[i]);
+            aux.add(authors[i]);
+            aux.add("false");
+            list.add(aux);
+        }
+        return list;
+    }
+
     public String[] getBooksTitle() {
         List<String> titles = new ArrayList<String>();
         String[] split1 = htmlContent.split("f-searchResult__title");

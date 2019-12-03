@@ -1,9 +1,11 @@
+
 import java.util.List;
 import java.util.ArrayList;
 import static java.lang.System.*;
-import org.json.simple.*;
 
-class Library {
+import java.io.FileNotFoundException;
+
+public class Library {
 
     private int lastId;
     private List<Book> acervo;
@@ -49,29 +51,51 @@ class Library {
         lastId += 1;
     }
 
-    public boolean addBook(Book b) {
+    public boolean addBook(Book b) throws FileNotFoundException {
         if (b != null) {
             acervo.add(b);
-            out.print("Book "+b.id()+" was registered successfully!");
+            out.print("Book " + b.id() + " was registered successfully!");
 
-            if (addToDB(b)) {
-                out.print("Book "+b.id()+" was successfully stored.");
+            if (updateDB()) {
+                out.print("Book " + b.id() + " was successfully stored.");
                 return true;
-            }
-            else {
-                out.print("Book "+b.id()+" could not be stored.");
+            } else {
+                out.print("Book " + b.id() + " could not be stored.");
                 out.print("Removing from registry...");
                 acervo.remove(b);
                 return false;
             }
+        } else {
+            out.print("Book " + b.id() + " could not be registered!");
+            return false;
         }
-        else {
-            out.print("Book "+b.id()+" could not be registered!");
+    }
+    
+    public boolean removeBook(Book b) throws FileNotFoundException {
+        if (b != null) {
+            acervo.remove(b);
+            out.print("Book " + b.id() + " had its registry erased successfully!");
+
+            if (updateDB()) {
+                out.print("Book " + b.id() + " was successfully removed.");
+                return true;
+            } else {
+                out.print("Book " + b.id() + " could not be removed.");
+                out.print("Adding back to registry...");
+                acervo.add(b);
+                return false;
+            }
+        } else {
+            out.print("Book " + b.id() + " could not be erased!");
             return false;
         }
     }
 
-    private boolean addToDB(Book b) {
-        
+    private boolean updateDB() throws FileNotFoundException {
+        DataBaseCreator dbCreator = new DataBaseCreator(acervo);
+        if (dbCreator.exportDB()) {
+            return true;
+        }
+        return false;
     }
 }
