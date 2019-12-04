@@ -12,6 +12,12 @@ public class TestLibrary {
                 l.get(i).borrow();
             }
         }
-        out.print(lib);
+        out.println(lib);
+        lib.removeBook(40);
+        lib.addBook(new Book("Iraque", "João Ratão", Category.THRILLER));
+        out.println(lib);
+        lib.addBook(new Book("Unhas Negras", "João da Silva Correia", Category.LITERATURE));
+        out.println(lib);
+        lib.addBook(new Book("Unhas Negras", "João da Silva Correia", Category.LITERATURE));
     }
 }

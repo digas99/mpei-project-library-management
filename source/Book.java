@@ -1,32 +1,26 @@
 import java.io.FileNotFoundException;
+import static java.lang.System.*;
 
 public class Book {
 
-    private final int id;
+    private int id;
     private String title;
     private String author;
     private Category category;
     private boolean borrowed;
-    private Library lib;
 
-    public Book(String title, String author, Category category, Library l) {
-        if (l != null) {
-            id = l.setIdToBook();
-            l.increaseId();
-        } else
-            id = 0;
+    public Book(String title, String author, Category category) {
         this.title = title;
         this.author = author;
         this.category = category;
         borrowed = false;
     }
 
-    public Book(int id, String title, String author, String borrowed, Category category, Library l) {
+    public Book(int id, String title, String author, String borrowed, Category category) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.category = category;
-        lib = l;
         if (borrowed == "true")
             this.borrowed = true;
         else
@@ -53,10 +47,16 @@ public class Book {
         return borrowed;
     }
 
-    // FALTA DAR UPDATE NA BASE DE DADOS
     public void borrow() throws FileNotFoundException {
         borrowed = true;
-        lib.updateDB();
+    }
+
+    public boolean setId(int id) {
+        if (id>0) {
+            this.id = id;
+            return true;
+        }
+        return false;
     }
 
     public boolean setTitle(String t) {
@@ -95,9 +95,15 @@ public class Book {
     @Override
     public String toString() {
         if (borrowed) {
-            return "[R] "+id+". "+title+" by "+author+" - "+category;
+            if (id == 0) {
+                return "[R] "+title+" | "+author+" - ["+Category.getName(category)+"]";
+            }
+            return id+". [R] "+title+" | "+author+" - ["+Category.getName(category)+"]";
         }
-        return id+". "+title+" by "+author+" - "+category;
+        if (id == 0) {
+            return title+" | "+author+" - ["+Category.getName(category)+"]";
+        }
+        return id+". "+title+" | "+author+" - ["+Category.getName(category)+"]";
     }
 
     @Override

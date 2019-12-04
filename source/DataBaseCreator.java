@@ -9,9 +9,8 @@ import static java.lang.System.*;
 
 public class DataBaseCreator {
 
-    private static FetchFromWeb[] ffwArray;
-    private Book[] books;
-    private Library lib;
+    private FetchFromWeb[] ffwArray;
+    private List<Integer> ids;
     private int idCounter;
 
     public DataBaseCreator(String[] links, String[] fileNames) throws IOException {
@@ -34,19 +33,7 @@ public class DataBaseCreator {
         out.println("]\n");
     }
 
-    public DataBaseCreator(List<Book> booksList) {
-        idCounter = 1;
-        books = booksList.toArray(new Book[booksList.size()]);
-    }
-
-    public DataBaseCreator(Book[] books) {
-        idCounter = 1;
-        this.books = books;
-    }
-
-    public DataBaseCreator(Library lib) {
-        idCounter = 1;
-        this.lib = lib;
+    public DataBaseCreator() {
     }
 
     public void printBooks(FetchFromWeb ffw) {
@@ -80,16 +67,32 @@ public class DataBaseCreator {
             pwJSON.close();
             return true;
         }
-        else if ((books != null && books.length > 0) || lib != null) {
-            booksMap = new HashMap<>();
-            booksList = new ArrayList<>();
+        out.print("Could not create the data base file!");
+        return false;
+    }
+
+    public boolean exportDB(List<Book> list) throws FileNotFoundException {
+        int counter=0;
+        ids = new ArrayList<>();
+        // out.print("");
+        // for (Book b : list) {
+        //     out.print(b.id());
+        // }
+        // out.println("");
+        PrintWriter pwJSON = new PrintWriter("../data_base.json");
+        Map<Integer, List<String>> booksMap;
+        JSONObject jsO = new JSONObject();
+        Book[] books;
+        List<List<String>> booksList;
+        if (list != null && list.size() > 0) {
             Category[] categories = Category.getCategories();
             for (Category c : categories) {
-                if (lib != null) {
-                    books = lib.acervo().toArray(new Book[lib.acervo().size()]);
-                }
+                booksMap = new HashMap<>();
+                booksList = new ArrayList<>();
+                books = list.toArray(new Book[list.size()]);
                 for (Book b : books) {
                     if (b.category().equals(c)) {
+                        ids.add(b.id());
                         String borrowed;
                         if (b.borrowed())
                             borrowed = "true";
@@ -104,10 +107,9 @@ public class DataBaseCreator {
                 }
 
                 for (List<String> book : booksList) {
-                    booksMap.put(idCounter, book);
-                    idCounter+=1;
+                    booksMap.put(ids.get(counter), book);
+                    counter++;
                 }
-
                 jsO.put(Category.getFileName(c), booksMap);
             }
             pwJSON.write(jsO.toJSONString());
@@ -115,8 +117,6 @@ public class DataBaseCreator {
             pwJSON.close();
             return true;
         }
-        pwJSON.flush();
-        pwJSON.close();
         out.print("Could not create the data base file!");
         return false;
     }
