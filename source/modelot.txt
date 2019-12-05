@@ -1,0 +1,17 @@
+1 - listar livros
+	1.1 - listat todoso os livros 
+	1.2 - listar livros por categoria
+	voltar para o menu anterior
+2 - Pesquisar livros
+	2.1 - verificar existncia de livro
+	2.2 - listar livros com titulos parecidos
+	voltar para o menu anterior
+3 - Pesquisar autores
+	3.1 - verificar existncia se há livros do autor
+	3.2 - listar livros do autor
+	voltar para o menu anterior
+4 - Administração
+	4.1 - adiconiar livro 
+	4.2 - remover livro 
+	4.3 - requisitar livro
+	voltar para o menu anterior
