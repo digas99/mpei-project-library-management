@@ -7,20 +7,18 @@ public class TestMinHash {
 
     public static List<int[]> hashesPerShingle = new ArrayList<>();
     public static Hash[] hashList;
-    public static int nmrShingles = 15;
+    public static int nmrCharsPerShingle = 3;
+    static int nmrHashes = 15;
 
     public static void main(String[] args) {
         String s = "diogo costa correia";
-        hashList = new Hash[nmrShingles];
+        hashList = new Hash[nmrHashes];
         fillHashList();
-        MinHash minHash = new MinHash(10, nmrShingles, hashList);
+        MinHash minHash = new MinHash(nmrHashes, nmrCharsPerShingle, hashList);
         String[] shingles = minHash.makeShingles(s);
         out.println(s+"\n");
         for (String shingle : shingles) {
-            out.println(shingle);
-            out.print("string2hash("+shingle+") = ");
             int str2hash = MathWorksFunctions.string2hash(shingle, "djb2");
-            out.println(str2hash);
             int[] hashes = minHash.getHashesForShingle(str2hash);
             hashesPerShingle.add(hashes);
             int c=0;
@@ -50,7 +48,7 @@ public class TestMinHash {
 
     public static void fillHashList() {
         for (int i=0; i<hashList.length; i++) {
-            hashList[i] = new Hash((int) (Math.pow(2, 32)), 552645);
+            hashList[i] = new Hash((int) (Math.pow(2, 32)), 900003659);
         }
     }
 }

@@ -5,12 +5,13 @@ import java.util.List;
 public class MinHash {
 
     private int nHashes;
-    private int nmrShingles;
+    private int nmrCharsPerShingle;
     private Hash[] hashList;
+    private int nmrShingles;
 
-    public MinHash(int nmrHashes, int nmrShingles, Hash[] hashList) {
+    public MinHash(int nmrHashes, int nmrCharsPerShingle, Hash[] hashList) {
         nHashes = nmrHashes;
-        this.nmrShingles = nmrShingles;
+        this.nmrCharsPerShingle = nmrCharsPerShingle;
         this.hashList = hashList;
     }
 
@@ -18,8 +19,8 @@ public class MinHash {
         return nHashes;
     }
 
-    public int nmrShingles() {
-        return nmrShingles;
+    public int nmrCharsPerShingle() {
+        return nmrCharsPerShingle;
     }
 
     public String[] makeShingles(String s) {
@@ -27,14 +28,18 @@ public class MinHash {
             int size = s.length();
             if (size > 0) {
                 s = s.toLowerCase();
+                s = s.trim();
+                s = s.replaceAll(" ", "");
+                out.println(s);
+                nmrShingles = s.length()-2;
                 if (nmrShingles<s.length()) {
                     out.println("");
-                    out.println("Making shingles...");
+                    out.println("NmrCharsPerShingleMaking shingles...");
                     String[] shingles = new String[nmrShingles];
-                    int nmrCharsPerShingle = (size-nmrShingles)+1;
                     out.println("NmrCharsPerShingle = "+nmrCharsPerShingle);
                     out.println("Size = "+size);
                     out.println("nmrShingles = "+ nmrShingles);
+                    out.println("");
                     char[] arrayOfChars = stringToArrayOfChars(s);
                     for (int i=0; i<nmrShingles; i++) {
                         shingles[i] = createShingle(nmrCharsPerShingle, i, arrayOfChars);    
@@ -74,7 +79,6 @@ public class MinHash {
         int[] hashes = new int[nHashes];
         for (int i=0; i<nHashes; i++) {
             h = hashList[i];
-            out.println("HASH "+i+": "+h);
             hashes[i] = hash(shingleHashed, h);
         }
         return hashes;
