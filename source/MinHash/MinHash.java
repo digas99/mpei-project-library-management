@@ -6,10 +6,12 @@ public class MinHash {
 
     private int nHashes;
     private int nmrShingles;
+    private Hash[] hashList;
 
-    public MinHash(int nmrHashes, int nmrShingles) {
+    public MinHash(int nmrHashes, int nmrShingles, Hash[] hashList) {
         nHashes = nmrHashes;
         this.nmrShingles = nmrShingles;
+        this.hashList = hashList;
     }
 
     public int nmrHashes() {
@@ -34,8 +36,6 @@ public class MinHash {
                     out.println("Size = "+size);
                     out.println("nmrShingles = "+ nmrShingles);
                     char[] arrayOfChars = stringToArrayOfChars(s);
-                    int nShinglesCreated = 0;
-                    String shingle="";
                     for (int i=0; i<nmrShingles; i++) {
                         shingles[i] = createShingle(nmrCharsPerShingle, i, arrayOfChars);    
                     }
@@ -70,31 +70,21 @@ public class MinHash {
     }
 
     public int[] getHashesForShingle(int shingleHashed) {
+        Hash h;
         int[] hashes = new int[nHashes];
         for (int i=0; i<nHashes; i++) {
-            hashes[i] = hash(shingleHashed);
+            h = hashList[i];
+            out.println("HASH "+i+": "+h);
+            hashes[i] = hash(shingleHashed, h);
         }
         return hashes;
     }
 
-    public int hash(int shingle) {
-        int randVal = random(0, (int) (Math.pow(2, 32)+2)-1);
-        int randOddVal = randomOdd(1, (int) (Math.pow(2, 32)+2)-1);
-        int hashVal = ((randOddVal*shingle+randVal) % (int) (Math.pow(2, 32)+2)) % (int) (Math.pow(2, 32)+1);
+    public int hash(int shingle, Hash h) {
+        int hashVal = (h.a()*shingle+h.b()) % h.oddNmr();
         if (hashVal < 0)
             hashVal = -hashVal;
         return hashVal;
-    }
-
-    private int random(int min, int max) {
-        int range = max-min+1;
-        return (int) (Math.random() * range) + min;
-    }
-
-    private int randomOdd(int min, int max) {
-        int rand = random(min, max);
-        rand+=(rand%2==0?1:0);
-        return rand;
     }
 
     public int[] stringHashes(List<int[]> hashesList) {

@@ -6,10 +6,14 @@ import java.util.List;
 public class TestMinHash {
 
     public static List<int[]> hashesPerShingle = new ArrayList<>();
+    public static Hash[] hashList;
+    public static int nmrShingles = 15;
 
     public static void main(String[] args) {
         String s = "diogo costa correia";
-        MinHash minHash = new MinHash(10, 15);
+        hashList = new Hash[nmrShingles];
+        fillHashList();
+        MinHash minHash = new MinHash(10, nmrShingles, hashList);
         String[] shingles = minHash.makeShingles(s);
         out.println(s+"\n");
         for (String shingle : shingles) {
@@ -42,5 +46,11 @@ public class TestMinHash {
             c2++;
         }
         out.println("");
+    }
+
+    public static void fillHashList() {
+        for (int i=0; i<hashList.length; i++) {
+            hashList[i] = new Hash((int) (Math.pow(2, 32)), 552645);
+        }
     }
 }
