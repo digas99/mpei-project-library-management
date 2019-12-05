@@ -9,7 +9,9 @@ public class TestMinHash {
         out.println(s+"\n");
         for (String shingle : shingles) {
             out.println(shingle);
+            out.print("string2hash("+shingle+") = ");
+            int str2hash = MathWorksFunctions.string2hash(shingle, "djb2");
+            out.println(str2hash);
         }
-        out.print((int) 'A');
     }
 }

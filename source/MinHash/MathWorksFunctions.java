@@ -37,10 +37,24 @@ public class MathWorksFunctions {
         // % Function is written by D.Kroon University of Twente (June 2010)
 
         int[] strVals = getAsciiValues(str);
+        int hash;
         switch(type) {
             case "djb2":
-                
+                hash = 5381;
+                for (int val : strVals) {
+                    hash = (int) ((hash*33 + val) % (Math.pow(2, 32)-1));
+                }
+                break;
+            case "sdbm":
+                hash = 0;
+                for (int val : strVals) {
+                    hash = (int) ((hash*65599 + val) % (Math.pow(2, 32)-1));
+                }
+                break;
+            default:
+                return 0;
         }
+        return hash;
     }
 
     private static int[] getAsciiValues(String str) {
