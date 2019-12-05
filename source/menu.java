@@ -13,18 +13,19 @@ public class menu
     	for (int i=0; i<opts.length; i++) 
     	{
         	out.println("["+(i+1)+"] - "+opts[i]);
-        	out.print("[0] - Anterior");
     	}
+
+    	out.println("[0] - Anterior");
 	}
 
 	public static void main(String[] args) throws IOException
 	{
 		String[] menu1 = {"Listar Livros", "Pesquisar Livros", "Pesquisar autores", "Admistração"};
-		String[] listar = {"Listar todos os livros", "Listar livros com titulos parecidos"};
-		String[] pesquisar = {"Verificar existncia de há livros do autor", "Listar livros do autor"};
+		String[] listar = {"Listar todos os livros", "Listar livros por categoria"};
+		String[] pesquisar = {"Verificar existncia de livro", "Listar livros com titulos parecidos"};
+		String[] pesquisar1 = {"Verificar se há livros do autor", "Listar livros do autor"};
 		String[] admin = {"Adicionar livro", "Remover livro", "Requisitar livro"};
-
-		display_menu(menu1);
+		boolean mainMenu = false;
 
 		try 
 		{
@@ -33,31 +34,122 @@ public class menu
 		catch(FileNotFoundException e) 
 		{}
 
-		System.out.print("Selecione uma opção:");
+		do {
+			mainMenu = false;
+			display_menu(menu1);
 
-		switch(in.nextInt())
-		{
-			case 1:
-				display_menu(listar);
-				switch(in.nextInt())
-				{
-					case 1:
-						break;
+			System.out.print("Selecione uma opção:");
 
-				}
-				break;
+			switch(in.nextInt())
+			{
+				case 0:
+					break;
 
-			case 2:
-				
-				break;
+				case 1:
 
-			case 3:
-				
-				break;
+					out.println("");
+					display_menu(listar);
+					out.print("Selcione uma opção:");
 
-			case 4:
-				
-				break;
-		}
+					switch(in.nextInt())
+					{
+						case 0:
+
+							mainMenu = true;
+							out.println("");
+							break;
+
+						case 1:
+
+							break;
+
+						case 2:
+
+							break;
+
+					}
+					break;
+
+				case 2:
+
+					out.println("");
+					display_menu(pesquisar);
+					out.print("Selecione uma opção:");
+
+					switch(in.nextInt())
+					{
+						case 0:
+
+							mainMenu = true;
+							out.println("");
+							break;
+
+						case 1:
+
+							break;
+
+						case 2:
+
+							break;
+					}
+					
+					break;
+
+				case 3:
+
+					out.println("");
+					display_menu(pesquisar1);
+					out.print("Selecione uma opção:");
+
+					switch(in.nextInt())
+					{
+						case 0:
+
+							mainMenu = true;
+							out.println("");
+							break;
+
+						case 1:
+
+							break;
+
+						case 2:
+
+							break;
+					}
+					
+					break;
+
+				case 4:
+
+					out.println("");
+					display_menu(admin);
+					out.print("Selecione uma opção:");
+
+					switch(in.nextInt())
+					{
+						case 0:
+
+							mainMenu = true;
+							out.println("");
+							break;
+
+						case 1:
+
+							break;
+
+						case 2:
+
+							break;
+
+						case 3:
+
+							break;
+
+					}
+					
+					break;
+			}
+		} while(mainMenu);
 	}
 }
