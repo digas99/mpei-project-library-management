@@ -33,13 +33,13 @@ public class MinHash {
                 out.println(s);
                 nmrShingles = s.length()-2;
                 if (nmrShingles<s.length()) {
-                    out.println("");
-                    out.println("NmrCharsPerShingleMaking shingles...");
+                    // out.println("");
+                    // out.println("Making shingles...");
                     String[] shingles = new String[nmrShingles];
-                    out.println("NmrCharsPerShingle = "+nmrCharsPerShingle);
-                    out.println("Size = "+size);
-                    out.println("nmrShingles = "+ nmrShingles);
-                    out.println("");
+                    // out.println("NmrCharsPerShingle = "+nmrCharsPerShingle);
+                    // out.println("Size = "+size);
+                    // out.println("nmrShingles = "+ nmrShingles);
+                    // out.println("");
                     char[] arrayOfChars = stringToArrayOfChars(s);
                     for (int i=0; i<nmrShingles; i++) {
                         shingles[i] = createShingle(nmrCharsPerShingle, i, arrayOfChars);    

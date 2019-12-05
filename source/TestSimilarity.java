@@ -15,16 +15,17 @@ public class TestSimilarity {
         minHash = new MinHash(nmrHashes, nmrCharsPerShingle, listHash);
         fillHashList();
 
-        Book b1 = new Book("Rei Leão", "Disney", Category.KIDS);
-        Book b2 = new Book("Rei Leão 2", "Disney", Category.KIDS);
-        Book b3 = new Book("Unhas Negras", "João da Silva Correia", Category.LITERATURE);
+        String s = "As Crónicas de Gelo e Fogo";
+        Book b1 = new Book("A Guerra dos Tronos, As Crónicas de Gelo e Fogo Vol 1", "Disney", Category.KIDS);
+        Book b2 = new Book("A Tormenta de Espadas, As Crónicas de Gelo e Fogo Vol 5", "Disney", Category.KIDS);
+        Book b3 = new Book("O Festim dos Corvos, As Crónicas de Gelo e Fogo Vol 7", "João da Silva Correia", Category.LITERATURE);
 
         out.println("_______________________________________________");
-        out.println("Distance B1-B1: "+checkSimilarity(getHashes(b1.title()), getHashes(b1.title()))+"%");
+        out.println("Distance S-B1: "+checkSimilarity(getMinHashes(s), getMinHashes(b1.title()))+"%");
         out.println("_______________________________________________");
-        out.println("Distance B1-B2: "+checkSimilarity(getHashes(b1.title()), getHashes(b2.title()))+"%");
+        out.println("Distance S-B2: "+checkSimilarity(getMinHashes(s), getMinHashes(b2.title()))+"%");
         out.println("_______________________________________________");
-        out.println("Distance B1-B3: "+checkSimilarity(getHashes(b1.title()), getHashes(b3.title()))+"%");
+        out.println("Distance S-B3: "+checkSimilarity(getMinHashes(s), getMinHashes(b3.title()))+"%");
         out.println("_______________________________________________");
     }
 
@@ -55,7 +56,7 @@ public class TestSimilarity {
         return intersections;
     }
 
-    public static int[] getHashes(String s) {
+    public static int[] getMinHashes(String s) {
         out.println(s);
         List<int[]> hashesPerShingle = new ArrayList<>();
         String[] shingles = minHash.makeShingles(s);
