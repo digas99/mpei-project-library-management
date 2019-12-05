@@ -1,40 +1,48 @@
 import static java.lang.System.*;
 
+import java.util.List;
+
 public class MinHash {
 
     private int nHashes;
+    private int nmrShingles;
 
-    public MinHash(int nmrHashes) {
+    public MinHash(int nmrHashes, int nmrShingles) {
         nHashes = nmrHashes;
+        this.nmrShingles = nmrShingles;
+    }
+
+    public int nmrHashes() {
+        return nHashes;
+    }
+
+    public int nmrShingles() {
+        return nmrShingles;
     }
 
     public String[] makeShingles(String s) {
         if (s != null) {
             int size = s.length();
             if (size > 0) {
-                out.println("");
-                out.println("Making shingles...");
-                int nmrCharsPerShingle = calcNmrCharsPerShingle(size);
-                double nmrShingles = Math.ceil((double) size/ (double) nmrCharsPerShingle);
-                String[] shingles = new String[(int) nmrShingles];
-                out.println("NmrCharsPerShingle = "+nmrCharsPerShingle);
-                out.println("Size = "+size);
-                out.println("nmrShingles = "+ nmrShingles);
-                char[] arrayOfChars = stringToArrayOfChars(s);
-                int nShinglesCreated = 0;
-                int counter=0;
-                String shingle="";
-                for (int i=0; i<nmrShingles; i++) {
-                    if (i == nmrShingles-1) {
-                        out.println("here");
-                        shingles[(int) nmrShingles-1] = createShingle((arrayOfChars.length - nmrCharsPerShingle*i), counter, arrayOfChars);
+                s = s.toLowerCase();
+                if (nmrShingles<s.length()) {
+                    out.println("");
+                    out.println("Making shingles...");
+                    String[] shingles = new String[nmrShingles];
+                    int nmrCharsPerShingle = (size-nmrShingles)+1;
+                    out.println("NmrCharsPerShingle = "+nmrCharsPerShingle);
+                    out.println("Size = "+size);
+                    out.println("nmrShingles = "+ nmrShingles);
+                    char[] arrayOfChars = stringToArrayOfChars(s);
+                    int nShinglesCreated = 0;
+                    String shingle="";
+                    for (int i=0; i<nmrShingles; i++) {
+                        shingles[i] = createShingle(nmrCharsPerShingle, i, arrayOfChars);    
                     }
-                    else {
-                        shingles[i] = createShingle(nmrCharsPerShingle, counter, arrayOfChars);
-                        counter+=4;    
-                    }
+                    return shingles;
                 }
-                return shingles;
+                else
+                    return null;
             }
             else
                 return null;
@@ -61,13 +69,54 @@ public class MinHash {
         return shingle;
     }
 
-    private int calcNmrCharsPerShingle(int size) {
-        if (size > 0 && size < 4)
-            return 1;
-        if (size >= 4 && size < 8)
-            return 2;
-        if (size >=8 && size < 12)
-            return 3;
-        return 4;
+    public int[] getHashesForShingle(int shingleHashed) {
+        int[] hashes = new int[nHashes];
+        for (int i=0; i<nHashes; i++) {
+            hashes[i] = hash(shingleHashed);
+        }
+        return hashes;
+    }
+
+    public int hash(int shingle) {
+        int randVal = random(0, (int) (Math.pow(2, 32)+2)-1);
+        int randOddVal = randomOdd(1, (int) (Math.pow(2, 32)+2)-1);
+        int hashVal = ((randOddVal*shingle+randVal) % (int) (Math.pow(2, 32)+2)) % (int) (Math.pow(2, 32)+1);
+        if (hashVal < 0)
+            hashVal = -hashVal;
+        return hashVal;
+    }
+
+    private int random(int min, int max) {
+        int range = max-min+1;
+        return (int) (Math.random() * range) + min;
+    }
+
+    private int randomOdd(int min, int max) {
+        int rand = random(min, max);
+        rand+=(rand%2==0?1:0);
+        return rand;
+    }
+
+    public int[] stringHashes(List<int[]> hashesList) {
+        int sizeArray = hashesList.get(0).length;
+        int[] finalArray = new int[sizeArray];
+        for (int i=0; i<sizeArray; i++) {
+            int[] currentPosHashes = new int[nmrShingles];
+            for (int j=0; j<nmrShingles; j++) {
+                currentPosHashes[j] = hashesList.get(j)[i];
+            }
+            int minHashVal = getMin(currentPosHashes);
+            finalArray[i] = minHashVal;
+        }
+        return finalArray;
+    }
+
+    private int getMin(int[] arr) {
+        int min = arr[0];
+        for (int i=1; i<arr.length; i++) {
+            if (arr[i] < min)
+                min = arr[i];
+        }
+        return min;
     }
 }
