@@ -15,8 +15,8 @@ public class TestSimilarity {
         minHash = new MinHash(nmrHashes, nmrCharsPerShingle, listHash);
         fillHashList();
 
-        String s = "As Crónicas de Gelo e Fogo";
-        Book b1 = new Book("A Guerra dos Tronos, As Crónicas de Gelo e Fogo Vol 1", "Disney", Category.KIDS);
+        String s = "O Mago";
+        Book b1 = new Book("O Mago: Aprendiz, Saga O Mago Vol 1", "Disney", Category.KIDS);
         Book b2 = new Book("A Tormenta de Espadas, As Crónicas de Gelo e Fogo Vol 5", "Disney", Category.KIDS);
         Book b3 = new Book("O Festim dos Corvos, As Crónicas de Gelo e Fogo Vol 7", "João da Silva Correia", Category.LITERATURE);
 

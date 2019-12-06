@@ -24,27 +24,37 @@ public class MinHash {
     }
 
     public String[] makeShingles(String s) {
+        out.println("String");
+        out.println(s);
         if (s != null) {
             int size = s.length();
             if (size > 0) {
-                s = s.toLowerCase();
-                s = s.trim();
-                s = s.replaceAll(" ", "");
-                out.println(s);
-                nmrShingles = s.length()-2;
-                if (nmrShingles<s.length()) {
-                    // out.println("");
-                    // out.println("Making shingles...");
-                    String[] shingles = new String[nmrShingles];
-                    // out.println("NmrCharsPerShingle = "+nmrCharsPerShingle);
-                    // out.println("Size = "+size);
-                    // out.println("nmrShingles = "+ nmrShingles);
-                    // out.println("");
-                    char[] arrayOfChars = stringToArrayOfChars(s);
-                    for (int i=0; i<nmrShingles; i++) {
-                        shingles[i] = createShingle(nmrCharsPerShingle, i, arrayOfChars);    
+                if (!stringIsBlank(s)) {
+                    s = s.toLowerCase();
+                    s = s.trim();
+                    s = s.replaceAll(" ", "");
+                    s = s.replaceAll(",", "");
+                    s = s.replaceAll(":", "");
+                    if (!onlyDigitString(s))
+                        s = removeDigits(s);
+                    out.println(s);
+                    nmrShingles = s.length()-2;
+                    if (nmrShingles<s.length()) {
+                        out.println("");
+                        out.println("Making shingles...");
+                        out.println("NmrCharsPerShingle = "+nmrCharsPerShingle);
+                        out.println("Size = "+size);
+                        out.println("nmrShingles = "+ nmrShingles);
+                        out.println("");
+                        String[] shingles = new String[nmrShingles];
+                        char[] arrayOfChars = stringToArrayOfChars(s);
+                        for (int i=0; i<nmrShingles; i++) {
+                            shingles[i] = createShingle(nmrCharsPerShingle, i, arrayOfChars);    
+                        }
+                        return shingles;
                     }
-                    return shingles;
+                    else
+                        return null;
                 }
                 else
                     return null;
@@ -112,5 +122,46 @@ public class MinHash {
                 min = arr[i];
         }
         return min;
+    }
+
+    private String removeDigits(String s) {
+        String newS = "";
+        for (int i=0; i<s.length(); i++) {
+            if (!isDigit(s.charAt(i))) {
+                newS+=s.charAt(i);
+            }
+        }
+        return newS;
+    }
+
+    private boolean isDigit(char ch) {
+        String c = ""+ch;
+        if (ch == ' ') {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(c);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean stringIsBlank(String s) {
+        char[] chars = stringToArrayOfChars(s);
+        for (char c : chars) {
+            if(!Character.isWhitespace(c))
+                return false;
+        }
+        return true;
+    }
+    
+    private boolean onlyDigitString(String s) {
+        char[] chars = stringToArrayOfChars(s);
+        for (char c : chars) {
+            if (!isDigit(c))
+                return false;
+        }
+        return true;
     }
 }

@@ -19,14 +19,14 @@ public class menu
 
 	public static void display_menu(String[] opts, boolean clear) 
 	{	
+		out.println("");		
 		if (clear)
 			clearScreen();
 		out.println(libName);
     	for (int i=0; i<opts.length; i++) 
     	{
-        	out.println("["+(i+1)+"] - "+opts[i]);
+			out.println("["+(i+1)+"] - "+opts[i]);
     	}
-
 		out.println("[0] - Anterior");
 		out.print("Selecione uma opção: ");
 	}
@@ -43,7 +43,7 @@ public class menu
 		listHash = new Hash[nmrHashes];
 		fillHashList();
 		minHash = new MinHash(nmrHashes, nmrCharsPerShingle, listHash);
-
+		int opt;
 		try 
 		{
 			lib = new Library("MPEI Library");
@@ -76,7 +76,21 @@ public class menu
 							break;
 
 						case 1:
-
+							out.println("");
+							for (Book b : listOfBooks) {
+								out.println(b);
+							}
+							display_menu(leave, false);
+							Scanner in2 = new Scanner(System.in);
+							switch(in2.nextInt()) {
+								case 0:
+									mainMenu = true;
+									out.println("");
+									break;
+								case 1:
+									out.println("A sair...");
+									break;
+							}
 							break;
 
 						case 2:
@@ -111,7 +125,7 @@ public class menu
 							int[] minHashes = getMinHashes(title);
 							for (Book b : listOfBooks) {
 								int[] minHashesOfB = getMinHashes(b.title());
-								if (checkSimilarity(minHashes, minHashesOfB) > 20) {
+								if (checkSimilarity(minHashes, minHashesOfB) > 7) {
 									similarBooks.add(b);
 								}
 							}
