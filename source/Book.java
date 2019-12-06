@@ -1,4 +1,7 @@
 import java.io.FileNotFoundException;
+import java.util.Calendar;
+import java.util.Date;
+
 import static java.lang.System.*;
 
 public class Book {
@@ -8,6 +11,7 @@ public class Book {
     private String author;
     private Category category;
     private boolean borrowed;
+    private Date timeWhenBorrowed;
 
     public Book(String title, String author, Category category) {
         this.title = title;
@@ -16,15 +20,12 @@ public class Book {
         borrowed = false;
     }
 
-    public Book(int id, String title, String author, String borrowed, Category category) {
+    public Book(int id, String title, String author, boolean borrowed, Category category) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.category = category;
-        if (borrowed == "true")
-            this.borrowed = true;
-        else
-            this.borrowed = false;
+        this.borrowed = borrowed;
     }
 
     public int id() {
@@ -47,8 +48,18 @@ public class Book {
         return borrowed;
     }
 
-    public void borrow() throws FileNotFoundException {
+    public void borrow() {
         borrowed = true;
+        timeWhenBorrowed = Calendar.getInstance().getTime();
+    }
+
+    public void returnBook() {
+        borrowed = false;
+        timeWhenBorrowed = null;
+    }
+
+    public Date getTimeWhenBorrowed() {
+        return timeWhenBorrowed;
     }
 
     public boolean setId(int id) {
@@ -96,9 +107,9 @@ public class Book {
     public String toString() {
         if (borrowed) {
             if (id == 0) {
-                return "[R] "+title+" | "+author+" - ["+Category.getName(category)+"]";
+                return "[Requesitado] "+title+" | "+author+" - ["+Category.getName(category)+"]";
             }
-            return id+". [R] "+title+" | "+author+" - ["+Category.getName(category)+"]";
+            return id+". [Requesitado] "+title+" | "+author+" - ["+Category.getName(category)+"]";
         }
         if (id == 0) {
             return title+" | "+author+" - ["+Category.getName(category)+"]";

@@ -24,8 +24,8 @@ public class MinHash {
     }
 
     public String[] makeShingles(String s) {
-        out.println("String");
-        out.println(s);
+        // out.println("String");
+        // out.println(s);
         if (s != null) {
             int size = s.length();
             if (size > 0) {
@@ -37,15 +37,15 @@ public class MinHash {
                     s = s.replaceAll(":", "");
                     if (!onlyDigitString(s))
                         s = removeDigits(s);
-                    out.println(s);
+                    // out.println(s);
                     nmrShingles = s.length()-2;
                     if (nmrShingles<s.length()) {
-                        out.println("");
-                        out.println("Making shingles...");
-                        out.println("NmrCharsPerShingle = "+nmrCharsPerShingle);
-                        out.println("Size = "+size);
-                        out.println("nmrShingles = "+ nmrShingles);
-                        out.println("");
+                        // out.println("");
+                        // out.println("Making shingles...");
+                        // out.println("NmrCharsPerShingle = "+nmrCharsPerShingle);
+                        // out.println("Size = "+size);
+                        // out.println("nmrShingles = "+ nmrShingles);
+                        // out.println("");
                         String[] shingles = new String[nmrShingles];
                         char[] arrayOfChars = stringToArrayOfChars(s);
                         for (int i=0; i<nmrShingles; i++) {

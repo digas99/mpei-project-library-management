@@ -61,43 +61,50 @@ public class Library {
             b.setId(lastId+1);
             ids.add(b.id());
             acervo.add(b);
-            out.println("Book " + b.id() + " was registered successfully!");
+            out.println("||||||Book " + b.id() + " was registered successfully!");
 
             if (updateDB()) {
-                out.println("Book " + b.id() + " was successfully stored.");
+                out.println("||||||Book " + b.id() + " was successfully stored.");
                 lastId+=1;
                 return true;
             } else {
-                out.println("Book " + b.id() + " could not be stored.");
-                out.println("Removing from registry...");
+                out.println("||||||Book " + b.id() + " could not be stored.");
+                out.println("||||||Removing from registry...");
                 acervo.remove(b);
                 ids.remove(b.id());
                 return false;
             }
         } else {
-            out.println("Book " + b.id() + " could not be registered!");
+            out.println("||||||Book " + b.id() + " could not be registered!");
             return false;
         }
     }
     
     public boolean removeBook(Book b) throws FileNotFoundException {
         if (b != null) {
-            ids.remove(b.id());
-            acervo.remove(b);
-            out.println("Book " + b.id() + " had its registry erased successfully!");
+            if (acervo.contains(b)) {
+                ids.remove(b.id());
+                acervo.remove(b);
+                out.println("||||||Book " + b.id() + " had its registry erased successfully!");
 
-            if (updateDB()) {
-                out.println("Book " + b.id() + " was successfully removed.");
-                return true;
-            } else {
-                out.println("Book " + b.id() + " could not be removed.");
-                out.println("Adding back to registry...");
-                acervo.add(b);
-                ids.add(b.id());
+                if (updateDB()) {
+                    out.println("||||||Book " + b.id() + " was successfully removed.");
+                    return true;
+                } else {
+                    out.println("||||||Book " + b.id() + " could not be removed.");
+                    out.println("||||||Adding back to registry...");
+                    acervo.add(b);
+                    ids.add(b.id());
+                    return false;
+                }
+            }
+            else {
+                out.println("||||||That book doesn't exist in the library!");
                 return false;
             }
-        } else {
-            out.println("Book " + b.id() + " could not be erased!");
+        }
+        else {
+            out.println("||||||Book " + b.id() + " could not be erased!");
             return false;
         }
     }
@@ -111,7 +118,7 @@ public class Library {
                 }
             }
         }
-        out.println("There is no book with the id: "+id+" registered in this library.");
+        out.println("||||||There is no book with the id: "+id+" registered in this library.");
         return false;
     }
 
@@ -130,7 +137,10 @@ public class Library {
             for (Map.Entry<Integer, List<String>> entry : content.entrySet()) {
                 int id = entry.getKey();
                 List<String> info = entry.getValue();
-                addBook(new Book(id, info.get(0), info.get(1), info.get(2), c));
+                boolean borrowed = false;
+                if (info.get(2) == "true")
+                    borrowed = true;
+                addBook(new Book(id, info.get(0), info.get(1), borrowed, c));
                 counter++;
             }
         }
