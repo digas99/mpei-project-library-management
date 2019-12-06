@@ -62,7 +62,6 @@ public class Library {
             ids.add(b.id());
             acervo.add(b);
             out.println("||||||Book " + b.id() + " was registered successfully!");
-
             if (updateDB()) {
                 out.println("||||||Book " + b.id() + " was successfully stored.");
                 lastId+=1;

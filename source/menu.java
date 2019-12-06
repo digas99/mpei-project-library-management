@@ -38,7 +38,7 @@ public class menu
 	{
 		String[] menu1 = {"Listar Livros", "Pesquisar Livros", "Pesquisar autores", "Admistração"};
 		String[] listar = {"Listar todos os livros", "Listar livros por categoria"};
-		String[] pesquisar = {"Verificar existncia de livro", "Listar livros com titulos parecidos"};
+		String[] pesquisar = {"Verificar existência de livro", "Listar livros com títulos parecidos"};
 		String[] pesquisar1 = {"Verificar se há livros do autor", "Listar livros do autor"};
 		String[] admin = {"Adicionar livro", "Remover livro", "Requisitar livro", "Devolver livro"};
 		String[] leave = {"Sair"};
@@ -192,6 +192,7 @@ public class menu
 								default:
 									categoria = categories[opt1-1];
 							}
+							out.println("CATEGORIA: "+categoria);
 							if (categoria != "") {
 								Book newBook = new Book(lib.getLastId(), title, author, false, Category.getCategory(categoria));
 								if (lib.addBook(newBook))

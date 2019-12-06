@@ -30,11 +30,7 @@ public class MinHash {
             int size = s.length();
             if (size > 0) {
                 if (!stringIsBlank(s)) {
-                    s = s.toLowerCase();
-                    s = s.trim();
-                    s = s.replaceAll(" ", "");
-                    s = s.replaceAll(",", "");
-                    s = s.replaceAll(":", "");
+                    s = clearString(s);
                     if (!onlyDigitString(s))
                         s = removeDigits(s);
                     // out.println(s);
@@ -163,5 +159,14 @@ public class MinHash {
                 return false;
         }
         return true;
+    }
+
+    private String clearString(String s) {
+        s = s.toLowerCase();
+        s = s.trim();
+        s = s.replaceAll(" ", "");
+        s = s.replaceAll(",", "");
+        s = s.replaceAll(":", "");
+        return s;
     }
 }

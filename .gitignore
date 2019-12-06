@@ -1,6 +1,4 @@
-*.DS_Store
-
-# JAVA
+#JAVA
 *.class
 
 #.gitignore
@@ -19,3 +17,7 @@
 
 #vscode
 *.vscode
+
+#other
+*.DS_Store
+*.command
