@@ -65,7 +65,7 @@ public class TestSimilarity {
             int[] hashes = minHash.getHashesForShingle(str2hash);
             hashesPerShingle.add(hashes);
         }
-        return minHash.stringHashes(hashesPerShingle);
+        return minHash.minHashes(hashesPerShingle);
     }
 
     public static void fillHashList() {

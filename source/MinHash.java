@@ -97,7 +97,7 @@ public class MinHash {
         return hashVal;
     }
 
-    public int[] stringHashes(List<int[]> hashesList) {
+    public int[] minHashes(List<int[]> hashesList) {
         int sizeArray = hashesList.get(0).length;
         int[] finalArray = new int[sizeArray];
         for (int i=0; i<sizeArray; i++) {

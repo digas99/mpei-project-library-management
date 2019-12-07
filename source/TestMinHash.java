@@ -33,7 +33,7 @@ public class TestMinHash {
             out.println("______________________________");
         }
         out.println("");
-        int[] stringHashes = minHash.stringHashes(hashesPerShingle);
+        int[] stringHashes = minHash.minHashes(hashesPerShingle);
         out.println("Hashes for "+s);
         int c2=0;
         for (int hash : stringHashes) {
