@@ -5,17 +5,18 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 
-public class menu
+public class RunLibrary
 {
 	static String libName;
 	static BloomFilter bm = new BloomFilter((int)1e6, 6);
 	static Library lib;
 	static Scanner in = new Scanner(System.in);
 	static Hash[] listHash;
-    static MinHash minHash;
+    static MinHash minHash;	
     static int nmrCharsPerShingle = 3; 
 	static int nmrHashes = 225;
 	static List<Book> listOfBooks;
+	static String authorSearched = "";
 
 	public static void displayMenu(String title, String[] opts, boolean clear) 
 	{	
@@ -114,7 +115,16 @@ public class menu
 							break;
 
 						case 1:
-
+							out.print("Título do livro: ");
+							Scanner inString1 = new Scanner(System.in);
+							String input = inString1.nextLine();
+							for (Book b : listOfBooks) {
+								bm.insert(b.title());
+							}
+							if (bm.isMember(input))
+								out.println("Poderá existir um livro com o título "+input);
+							else
+								out.println("Não existe nenhum livro com o título "+input);
 							break;
 
 						case 2:
@@ -130,7 +140,7 @@ public class menu
 								}
 							}
 							out.println("");
-							displayBooks(similarBooks);
+							displayBooks("Livros parecidos com "+title,similarBooks);
 							break;
 					}
 					
@@ -151,11 +161,34 @@ public class menu
 							break;
 
 						case 1:
-
+							out.print("Nome do autor: ");
+							Scanner inString = new Scanner(System.in);
+							authorSearched = inString.nextLine();
+							for (Book b : listOfBooks) {
+								bm.insert(b.author());
+							}
+							if (bm.isMember(authorSearched))
+								out.println("O autor "+authorSearched+" poderá ter livros na biblioteca.");
+							else
+								out.println("Não existe nenhum livro do autor "+authorSearched);
 							break;
 
 						case 2:
-
+							List<Book> booksOfAuthor = new ArrayList<>();
+							int[] minHashesAuthor;
+							if (authorSearched != "")
+								minHashesAuthor = getMinHashes(authorSearched);
+							else {
+								out.println("Procura, primeiro, se há livros de um autor!");
+								break;
+							}
+							for (Book b : listOfBooks) {
+								int[] minHashesOfB = getMinHashes(b.author());
+								if (similarityValue(minHashesAuthor, minHashesOfB) > 70) {
+									booksOfAuthor.add(b);
+								}
+							}
+							displayBooks("Livros do autor "+authorSearched, booksOfAuthor);
 							break;
 					}
 					
@@ -293,8 +326,9 @@ public class menu
         }
 	}
 	
-	public static void displayBooks(List<Book> books) {
+	public static void displayBooks(String title, List<Book> books) {
 		clearScreen();
+		out.println(title);
 		if (books != null) {
 			if (books.size()>0) {
 				for (Book b : books) {
@@ -332,7 +366,7 @@ public class menu
 				validBooks.add(b);
 			}
 		}
-		displayBooks(validBooks);
+		displayBooks("Livros da categoria "+categoryName, validBooks);
 	}
 
 	public static boolean voltar(String[] options) {
